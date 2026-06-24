@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Replace YOURDOMAIN with your actual domain -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
+  <url><loc>https://YOURDOMAIN.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://YOURDOMAIN.com/home.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- SEO hub pages -->
+  <url><loc>https://YOURDOMAIN.com/pages/world-cup-2026-fixtures.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/world-cup-2026-bracket.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/world-cup-2026-printable-pdf.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Team pages -->
+  <url><loc>https://YOURDOMAIN.com/pages/algeria-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/argentina-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/australia-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/brazil-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/canada-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/egypt-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/england-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/france-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/ghana-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/iran-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/ivory-coast-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/mexico-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/morocco-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/portugal-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/spain-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://YOURDOMAIN.com/pages/usa-world-cup-fixtures.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+
+</urlset>
