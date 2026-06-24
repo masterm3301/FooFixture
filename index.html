@@ -1,349 +1,414 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coupe du Monde de la FIFA 2026 - Phase Finale</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            text-transform: uppercase;
-            font-size: 2.5em;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-        .bracket-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .bracket-side {
-            display: flex;
-            width: 42%;
-            justify-content: space-between;
-        }
-        .round {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            height: 800px;
-        }
-        .matchup {
-            width: 140px;
-            background: #ccc;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-size: 0.75rem;
-            text-align: center;
-        }
-        .matchup.defined {
-            background: #8b0000;
-            color: white;
-        }
-        .match-info {
-            background: #eee;
-            color: #333;
-            padding: 2px;
-            font-size: 0.65rem;
-            border-bottom: 1px solid #ccc;
-        }
-        .matchup.defined .match-info {
-            background: #f5f5f5;
-            color: #222;
-        }
-        .team {
-            padding: 6px;
-            font-weight: bold;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        .team:last-child {
-            border-bottom: none;
-        }
-        .center-axis {
-            width: 14%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 800px;
-        }
-        .trophy-placeholder {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-        .final-title {
-            font-weight: bold;
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .final-box {
-            width: 140px;
-            background: #8b0000;
-            color: white;
-            border-radius: 4px;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 0.8rem;
-        }
-        .third-place-box {
-            width: 140px;
-            background: #ff4500;
-            color: white;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 0.8rem;
-        }
-        .medal {
-            font-size: 2rem;
-            margin-top: 5px;
-        }
-        .footer-info {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        .legend {
-            color: #8b0000;
-            margin-right: 20px;
-        }
-    </style>
+    <title>FIFA World Cup 2026 - Knockout Stage</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/bracket.css">
+    <link rel="stylesheet" href="css/groups.css">
 </head>
 <body>
 
-    <h1>Coupe du Monde de la FIFA 2026&trade;</h1>
-    <div class="subtitle">Phase Finale</div>
+<!-- ═══ SECTION 1 — BRACKET ═══ -->
+<div class="bracket-section">
 
-    <div class="bracket-container">
-        <!-- LEFT SIDE BRACKET -->
+    <label class="fill-toggle" title="Fill all predicted teams into empty slots">
+        <input type="checkbox" id="fill-toggle-cb">
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        <span class="toggle-text">Fill bracket</span>
+    </label>
+
+    <div class="page-header">
+        <div class="subtitle">FIFA World Cup 2026 &mdash; Round of 32</div>
+    </div>
+
+    <div id="pred-banner">Click any team to predict their route to the Final</div>
+
+    <div class="bracket-wrapper">
+
+        <!-- ── LEFT SIDE ── -->
         <div class="bracket-side">
-            <!-- Round of 32 -->
+
+            <!-- R32 -->
             <div class="round">
-                <div class="matchup defined">
-                    <div class="match-info">29 JUIN 21:30<br>Boston</div>
-                    <div class="team">1E</div>
-                    <div class="team">3ABCDF</div>
+                <div class="matchup defined" data-match-id="r32-L1">
+                    <div class="match-info">29 JUN 21:30<br>Boston</div>
+                    <div class="team" data-team="Germany">Germany</div>
+                    <div class="team" data-team="Paraguay">Paraguay</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">30 JUIN 22:00<br>NY New Jersey</div>
-                    <div class="team">1I</div>
-                    <div class="team">3CDFGH</div>
+                <div class="matchup defined" data-match-id="r32-L2">
+                    <div class="match-info">30 JUN 22:00<br>NY New Jersey</div>
+                    <div class="team" data-team="France">France</div>
+                    <div class="team" data-team="Cape Verde">Cape Verde</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">28 JUIN 20:00<br>Los Angeles</div>
-                    <div class="team">2A</div>
-                    <div class="team">2B</div>
+                <div class="matchup defined" data-match-id="r32-L3">
+                    <div class="match-info">28 JUN 20:00<br>Los Angeles</div>
+                    <div class="team" data-team="South Korea">South Korea</div>
+                    <div class="team" data-team="Switzerland">Switzerland</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">29 JUIN 02:00<br>Monterrey</div>
-                    <div class="team">1F</div>
-                    <div class="team">2C</div>
+                <div class="matchup defined" data-match-id="r32-L4">
+                    <div class="match-info">29 JUN 02:00<br>Monterrey</div>
+                    <div class="team" data-team="Netherlands">Netherlands</div>
+                    <div class="team" data-team="Morocco">Morocco</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">02 JUIL 00:00<br>Toronto</div>
-                    <div class="team">2K</div>
-                    <div class="team">2L</div>
+                <div class="matchup defined" data-match-id="r32-L5">
+                    <div class="match-info">02 JUL 00:00<br>Toronto</div>
+                    <div class="team" data-team="Portugal">Portugal</div>
+                    <div class="team" data-team="Ghana">Ghana</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">02 JUIL 20:00<br>Los Angeles</div>
-                    <div class="team">1H</div>
-                    <div class="team">2J</div>
+                <div class="matchup defined" data-match-id="r32-L6">
+                    <div class="match-info">02 JUL 20:00<br>Los Angeles</div>
+                    <div class="team" data-team="Spain">Spain</div>
+                    <div class="team" data-team="Austria">Austria</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">01 JUIL 01:00<br>San Francisco</div>
-                    <div class="team">1D</div>
-                    <div class="team">3BEFIJ</div>
+                <div class="matchup defined" data-match-id="r32-L7">
+                    <div class="match-info">01 JUL 01:00<br>San Francisco</div>
+                    <div class="team" data-team="USA">USA</div>
+                    <div class="team" data-team="Sweden">Sweden</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">01 JUIL 21:00<br>Seattle</div>
-                    <div class="team">1G</div>
-                    <div class="team">3AEHIJ</div>
+                <div class="matchup defined" data-match-id="r32-L8">
+                    <div class="match-info">01 JUL 21:00<br>Seattle</div>
+                    <div class="team" data-team="Egypt">Egypt</div>
+                    <div class="team" data-team="Algeria">Algeria</div>
                 </div>
             </div>
 
-            <!-- Round of 16 -->
+            <!-- R16 -->
             <div class="round">
-                <div class="matchup">
-                    <div class="match-info">4 JUIL 22:00<br>Philadelphie</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-L1">
+                    <div class="match-info">4 JUL 22:00<br>Philadelphia</div>
+                    <div class="team prediction-slot" id="slot-r16-L1-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-L1-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">4 JUIL 18:00<br>Houston</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-L2">
+                    <div class="match-info">4 JUL 18:00<br>Houston</div>
+                    <div class="team prediction-slot" id="slot-r16-L2-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-L2-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">6 JUIL 20:00<br>Dallas</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-L3">
+                    <div class="match-info">6 JUL 20:00<br>Dallas</div>
+                    <div class="team prediction-slot" id="slot-r16-L3-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-L3-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">6 JUIL 01:00<br>Seattle</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-L4">
+                    <div class="match-info">6 JUL 01:00<br>Seattle</div>
+                    <div class="team prediction-slot" id="slot-r16-L4-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-L4-b">&nbsp;</div>
                 </div>
             </div>
 
-            <!-- Quarter-finals -->
+            <!-- QF -->
             <div class="round">
-                <div class="matchup">
-                    <div class="match-info">9 JUIL 21:00<br>Boston</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-qf-L1">
+                    <div class="match-info">9 JUL 21:00<br>Boston</div>
+                    <div class="team prediction-slot" id="slot-qf-L1-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-qf-L1-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">10 JUIL 20:00<br>Los Angeles</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-qf-L2">
+                    <div class="match-info">10 JUL 20:00<br>Los Angeles</div>
+                    <div class="team prediction-slot" id="slot-qf-L2-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-qf-L2-b">&nbsp;</div>
                 </div>
             </div>
 
-            <!-- Semi-finals -->
+            <!-- SF -->
             <div class="round">
-                <div class="matchup">
-                    <div class="match-info">14 JUIL 20:00<br>Dallas</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-sf-L">
+                    <div class="match-info">14 JUL 20:00<br>Dallas</div>
+                    <div class="team prediction-slot" id="slot-sf-L-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-sf-L-b">&nbsp;</div>
                 </div>
             </div>
         </div>
 
-        <!-- CENTER AXIS (FINALS) -->
+        <!-- ── CENTER (FINAL) ── -->
         <div class="center-axis">
             <div class="trophy-placeholder">🏆</div>
             <div class="final-title">Final</div>
-            <div class="final-box">
-                <div class="match-info" style="color:#222;">19 JUIL 20:00</div>
-                <div class="team" style="height:20px;"></div>
-                <div class="team" style="height:20px;"></div>
+            <div class="final-box" id="match-final">
+                <div class="match-info" style="color:#ffd;">19 JUL 20:00<br>MetLife</div>
+                <div class="team prediction-slot" id="slot-final-a" style="min-height:18px;">&nbsp;</div>
+                <div class="team prediction-slot" id="slot-final-b" style="min-height:18px;">&nbsp;</div>
             </div>
-
-            <div class="final-title" style="font-size:1.1rem;">3e Place</div>
-            <div class="third-place-box">
-                <div class="match-info" style="color:#222;">18 JUIL 22:00</div>
-                <div class="team" style="height:20px;"></div>
-                <div class="team" style="height:20px;"></div>
+            <div class="final-title" style="font-size:0.75rem;">3rd Place</div>
+            <div class="third-place-box" id="match-3rd">
+                <div class="match-info" style="color:#ffd;">18 JUL 22:00<br>Miami</div>
+                <div class="team prediction-slot" id="slot-3rd-a" style="min-height:18px;">&nbsp;</div>
+                <div class="team prediction-slot" id="slot-3rd-b" style="min-height:18px;">&nbsp;</div>
             </div>
             <div class="medal">🥉</div>
         </div>
 
-        <!-- RIGHT SIDE BRACKET -->
-        <div class="bracket-side" style="flex-direction: row-reverse;">
-            <!-- Round of 32 -->
+        <!-- ── RIGHT SIDE ── -->
+        <div class="bracket-side" style="flex-direction:row-reverse;">
+
+            <!-- R32 -->
             <div class="round">
-                <div class="matchup defined">
-                    <div class="match-info">29 JUIN 18:00<br>Houston</div>
-                    <div class="team">1C</div>
-                    <div class="team">2F</div>
+                <div class="matchup defined" data-match-id="r32-R1">
+                    <div class="match-info">29 JUN 18:00<br>Houston</div>
+                    <div class="team" data-team="Brazil">Brazil</div>
+                    <div class="team" data-team="Japan">Japan</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">30 JUIN 18:00<br>Dallas</div>
-                    <div class="team">2E</div>
-                    <div class="team">2I</div>
+                <div class="matchup defined" data-match-id="r32-R2">
+                    <div class="match-info">30 JUN 18:00<br>Dallas</div>
+                    <div class="team" data-team="Ivory Coast">Ivory Coast</div>
+                    <div class="team" data-team="Norway">Norway</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">01 JUIL 02:00<br>Mexico</div>
-                    <div class="team">1A</div>
-                    <div class="team">3CEFHI</div>
+                <div class="matchup defined" data-match-id="r32-R3">
+                    <div class="match-info">01 JUL 02:00<br>Mexico City</div>
+                    <div class="team" data-team="Mexico">Mexico</div>
+                    <div class="team" data-team="Scotland">Scotland</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">01 JUIL 17:00<br>Atlanta</div>
-                    <div class="team">1L</div>
-                    <div class="team">3EHIJK</div>
+                <div class="matchup defined" data-match-id="r32-R4">
+                    <div class="match-info">01 JUL 17:00<br>Atlanta</div>
+                    <div class="team" data-team="England">England</div>
+                    <div class="team" data-team="DR Congo">DR Congo</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">03 JUIL 23:00<br>Miami</div>
-                    <div class="team">1J</div>
-                    <div class="team">2H</div>
+                <div class="matchup defined" data-match-id="r32-R5">
+                    <div class="match-info">03 JUL 23:00<br>Miami</div>
+                    <div class="team" data-team="Argentina">Argentina</div>
+                    <div class="team" data-team="Uruguay">Uruguay</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">03 JUIL 19:00<br>Dallas</div>
-                    <div class="team">2D</div>
-                    <div class="team">2G</div>
+                <div class="matchup defined" data-match-id="r32-R6">
+                    <div class="match-info">03 JUL 19:00<br>Dallas</div>
+                    <div class="team" data-team="Australia">Australia</div>
+                    <div class="team" data-team="Iran">Iran</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">02 JUIL 23:00<br>Vancouver</div>
-                    <div class="team">1B</div>
-                    <div class="team">3EFGIJ</div>
+                <div class="matchup defined" data-match-id="r32-R7">
+                    <div class="match-info">02 JUL 23:00<br>Vancouver</div>
+                    <div class="team" data-team="Canada">Canada</div>
+                    <div class="team" data-team="Belgium">Belgium</div>
                 </div>
-                <div class="matchup defined">
-                    <div class="match-info">03 JUIL 21:30<br>Kansas City</div>
-                    <div class="team">1K</div>
-                    <div class="team">3DEIJL</div>
+                <div class="matchup defined" data-match-id="r32-R8">
+                    <div class="match-info">03 JUL 21:30<br>Kansas City</div>
+                    <div class="team" data-team="Colombia">Colombia</div>
+                    <div class="team" data-team="Croatia">Croatia</div>
                 </div>
             </div>
 
-            <!-- Round of 16 -->
+            <!-- R16 -->
             <div class="round">
-                <div class="matchup">
-                    <div class="match-info">05 JUIL 21:00<br>NY New Jersey</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-R1">
+                    <div class="match-info">05 JUL 21:00<br>NY New Jersey</div>
+                    <div class="team prediction-slot" id="slot-r16-R1-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-R1-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">06 JUIL 01:00<br>Mexico</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-R2">
+                    <div class="match-info">06 JUL 01:00<br>Mexico City</div>
+                    <div class="team prediction-slot" id="slot-r16-R2-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-R2-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">07 JUIL 21:00<br>Atlanta</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-R3">
+                    <div class="match-info">07 JUL 21:00<br>Atlanta</div>
+                    <div class="team prediction-slot" id="slot-r16-R3-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-R3-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">07 JUIL 17:00<br>Vancouver</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-r16-R4">
+                    <div class="match-info">07 JUL 17:00<br>Vancouver</div>
+                    <div class="team prediction-slot" id="slot-r16-R4-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-r16-R4-b">&nbsp;</div>
                 </div>
             </div>
 
-            <!-- Quarter-finals -->
+            <!-- QF -->
             <div class="round">
-                <div class="matchup">
-                    <div class="match-info">11 JUIL 22:00<br>Miami</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-qf-R1">
+                    <div class="match-info">11 JUL 22:00<br>Miami</div>
+                    <div class="team prediction-slot" id="slot-qf-R1-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-qf-R1-b">&nbsp;</div>
                 </div>
-                <div class="matchup">
-                    <div class="match-info">12 JUIL 02:00<br>Kansas City</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-qf-R2">
+                    <div class="match-info">12 JUL 02:00<br>Kansas City</div>
+                    <div class="team prediction-slot" id="slot-qf-R2-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-qf-R2-b">&nbsp;</div>
                 </div>
             </div>
 
-            <!-- Semi-finals -->
+            <!-- SF -->
             <div class="round">
-                <div class="matchup">
-                    <div class="match-info">15 JUIL 20:00<br>Atlanta</div>
-                    <div class="team">&nbsp;</div>
-                    <div class="team">&nbsp;</div>
+                <div class="matchup" id="match-sf-R">
+                    <div class="match-info">15 JUL 20:00<br>Atlanta</div>
+                    <div class="team prediction-slot" id="slot-sf-R-a">&nbsp;</div>
+                    <div class="team prediction-slot" id="slot-sf-R-b">&nbsp;</div>
                 </div>
             </div>
         </div>
+
+    </div><!-- end bracket-wrapper -->
+
+</div><!-- end bracket-section -->
+
+
+<!-- ═══ SECTION 2 — GROUP TABLES ═══ -->
+<div class="groups-section">
+    <h2>&#x26BD; Group Stage Standings</h2>
+
+    <div class="groups-grid">
+
+        <div class="group-card">
+            <div class="group-header">Group A</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇲🇽 Mexico</td><td>6</td><td>+3</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇰🇷 South Korea</td><td>3</td><td>0</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇨🇿 Czechia</td><td>1</td><td>-1</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇿🇦 South Africa</td><td>1</td><td>-2</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group B</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇨🇦 Canada</td><td>4</td><td>+6</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇨🇭 Switzerland</td><td>4</td><td>+3</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇧🇦 Bosnia-Herz.</td><td>1</td><td>-3</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇶🇦 Qatar</td><td>1</td><td>-6</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group C</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇧🇷 Brazil</td><td>4</td><td>+3</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇲🇦 Morocco</td><td>4</td><td>+1</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</td><td>3</td><td>0</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇭🇹 Haiti</td><td>0</td><td>-4</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group D</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇺🇸 USA</td><td>6</td><td>+5</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇦🇺 Australia</td><td>3</td><td>0</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇵🇾 Paraguay</td><td>3</td><td>-2</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇹🇷 Türkiye</td><td>0</td><td>-3</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group E</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇩🇪 Germany</td><td>6</td><td>+7</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇨🇮 Ivory Coast</td><td>3</td><td>0</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇪🇨 Ecuador</td><td>1</td><td>-1</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇨🇼 Curaçao</td><td>1</td><td>-6</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group F</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇳🇱 Netherlands</td><td>4</td><td>+4</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇯🇵 Japan</td><td>4</td><td>+4</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇸🇪 Sweden</td><td>3</td><td>0</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇹🇳 Tunisia</td><td>0</td><td>-8</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group G</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇪🇬 Egypt</td><td>4</td><td>+2</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇮🇷 Iran</td><td>2</td><td>0</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇧🇪 Belgium</td><td>2</td><td>0</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇳🇿 New Zealand</td><td>1</td><td>-2</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group H</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇪🇸 Spain</td><td>4</td><td>+4</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇺🇾 Uruguay</td><td>2</td><td>0</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇨🇻 Cape Verde</td><td>2</td><td>0</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇸🇦 Saudi Arabia</td><td>1</td><td>-4</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group I</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇫🇷 France</td><td>6</td><td>+5</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇳🇴 Norway</td><td>3</td><td>+3</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇸🇳 Senegal</td><td>0</td><td>-2</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇮🇶 Iraq</td><td>0</td><td>-6</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group J</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇦🇷 Argentina</td><td>6</td><td>+5</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇦🇹 Austria</td><td>3</td><td>0</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇩🇿 Algeria</td><td>3</td><td>-2</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇯🇴 Jordan</td><td>0</td><td>-3</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group K</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🇨🇴 Colombia</td><td>6</td><td>+3</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇵🇹 Portugal</td><td>4</td><td>+5</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇨🇩 DR Congo</td><td>1</td><td>-1</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇺🇿 Uzbekistan</td><td>0</td><td>-7</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group-card">
+            <div class="group-header">Group L</div>
+            <table class="group-table">
+                <thead><tr><th>#</th><th class="team-name">Team</th><th>Pts</th><th>Diff</th></tr></thead>
+                <tbody>
+                    <tr class="row-1st"><td>1</td><td class="team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td>4</td><td>+2</td></tr>
+                    <tr class="row-2nd"><td>2</td><td class="team-name">🇬🇭 Ghana</td><td>4</td><td>+1</td></tr>
+                    <tr class="row-3rd"><td>3</td><td class="team-name">🇭🇷 Croatia</td><td>3</td><td>-1</td></tr>
+                    <tr class="row-elim"><td>4</td><td class="team-name">🇵🇦 Panama</td><td>0</td><td>-2</td></tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-    <div class="footer-info">
-        <span class="legend">&mdash; Les parcours possibles du Maroc</span>
-        <span>Heure : GMT+1</span>
-    </div>
+    <p class="groups-note">Data as of June 24, 2026 &mdash; Group stage in progress &bull; 🥇 1st place qualified &bull; 🥈 2nd place qualified &bull; Best 3rd-place teams TBD</p>
+
+</div>
+
+<script src="js/bracket.js"></script>
 
 </body>
 </html>

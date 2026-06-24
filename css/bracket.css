@@ -1,0 +1,212 @@
+/* ── BRACKET SECTION ── */
+.bracket-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px 4px;
+    overflow: hidden;
+}
+
+/* ── FILL-BRACKET TOGGLE ── */
+.fill-toggle {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.72rem;
+    font-weight: bold;
+    color: #555;
+    z-index: 10;
+}
+.fill-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.toggle-track {
+    position: relative;
+    width: 38px;
+    height: 22px;
+    background: #bbb;
+    border-radius: 11px;
+    transition: background 0.25s;
+    flex-shrink: 0;
+}
+.toggle-thumb {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.25s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.fill-toggle input:checked + .toggle-track {
+    background: #8b0000;
+}
+.fill-toggle input:checked + .toggle-track .toggle-thumb {
+    transform: translateX(16px);
+}
+.fill-toggle input:checked ~ .toggle-text {
+    color: #8b0000;
+}
+
+.page-header { text-align: center; flex-shrink: 0; }
+.subtitle {
+    font-size: 0.88em;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+/* prediction info bar */
+#pred-banner {
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-height: 18px;
+    padding: 1px 8px;
+    color: #8b0000;
+    letter-spacing: 0.3px;
+    transition: opacity 0.3s;
+}
+
+.bracket-wrapper {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.bracket-side {
+    display: flex;
+    width: 43%;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.round {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.matchup {
+    width: 110px;
+    background: #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: outline 0.2s, box-shadow 0.2s;
+}
+.matchup.defined {
+    background: #8b0000;
+    color: white;
+}
+.match-info {
+    background: #e0e0e0;
+    color: #555;
+    padding: 2px 3px;
+    font-size: 0.56rem;
+    border-bottom: 1px solid #bbb;
+    line-height: 1.35;
+}
+.matchup.defined .match-info {
+    background: rgba(255,255,255,0.15);
+    color: #ffe;
+}
+.team {
+    padding: 4px 5px;
+    font-weight: bold;
+    font-size: 0.66rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+.matchup.defined .team { border-bottom-color: rgba(255,255,255,0.15); }
+.team:last-child { border-bottom: none; }
+
+/* clickable teams in R32 */
+.team[data-team] {
+    cursor: pointer;
+}
+.team[data-team]:hover {
+    filter: brightness(1.18);
+}
+
+/* ── PREDICTION HIGHLIGHT STATES ── */
+
+/* The selected team inside its defined R32 match */
+.matchup.defined .team.pred-selected {
+    background: rgba(255, 215, 0, 0.35);
+    color: #ffd700;
+}
+/* The dimmed opponent in R32 */
+.matchup.defined .team.pred-dim {
+    opacity: 0.35;
+}
+/* Any matchup on the route */
+.matchup.pred-route {
+    outline: 2px solid rgba(255, 215, 0, 0.75);
+    outline-offset: 1px;
+    box-shadow: 0 0 8px 2px rgba(255, 215, 0, 0.3);
+    overflow: visible;
+}
+/* Filled slot — the selected team progressing */
+.prediction-slot.pred-selected {
+    background: rgba(139, 0, 0, 0.65);
+    color: #ffd700 !important;
+}
+/* Filled slot — predicted opponent */
+.prediction-slot.pred-opponent {
+    background: rgba(0, 60, 130, 0.55);
+    color: #aad4ff !important;
+}
+/* Filled slot — background fill from Fill-bracket mode */
+.prediction-slot.pred-fill {
+    color: #777;
+    font-style: italic;
+}
+
+.center-axis {
+    width: 12%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.trophy-placeholder { font-size: 2rem; margin-bottom: 5px; }
+.final-title {
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    color: #8b0000;
+}
+.final-box, .third-place-box {
+    width: 110px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.68rem;
+    color: white;
+}
+.final-box { background: #8b0000; margin-bottom: 16px; }
+.third-place-box { background: #cc4400; }
+.medal { font-size: 1.4rem; margin-top: 5px; }
