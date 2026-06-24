@@ -53,6 +53,8 @@ const M = {
 // ── STATE ──────────────────────────────────────────────────────────────────
 let activeL = null;
 let activeR = null;
+let prevActiveL = null;
+let prevActiveR = null;
 let fillMode = false;
 
 // ── HELPERS ────────────────────────────────────────────────────────────────
@@ -115,6 +117,8 @@ function clearAll() {
     clearVisuals();
     activeL = null;
     activeR = null;
+    prevActiveL = null;
+    prevActiveR = null;
     document.getElementById('pred-banner').textContent = 'Click any team to predict their route to the Final';
 }
 
@@ -147,6 +151,20 @@ const ROUND_LABEL = {
 };
 
 // ── REDRAW ─────────────────────────────────────────────────────────────────
+function applySteps(steps, teamName, animate) {
+    steps.forEach(({ matchId, mySlot, opponent }, i) => {
+        const apply = () => {
+            const box = matchEl(matchId);
+            if (box) box.classList.add('pred-route');
+            const mySlotEl  = slot(matchId, mySlot);
+            const oppSlotEl = slot(matchId, 1 - mySlot);
+            if (mySlotEl)  { mySlotEl.classList.remove('pred-fill');  mySlotEl.textContent  = teamName; mySlotEl.classList.add('pred-selected'); }
+            if (oppSlotEl) { oppSlotEl.classList.remove('pred-fill'); oppSlotEl.textContent = opponent; oppSlotEl.classList.add('pred-opponent'); }
+        };
+        animate ? setTimeout(apply, i * 180) : apply();
+    });
+}
+
 function redraw() {
     clearVisuals();
 
@@ -163,29 +181,23 @@ function redraw() {
     // Fill all other slots immediately if fill mode is on
     if (fillMode) fillBracket(pathMatchIds);
 
+    // Which sides changed since the last draw?
+    const lChanged = activeL !== prevActiveL;
+    const rChanged = activeR !== prevActiveR;
+
     // ── Single team ──
     if (!activeL || !activeR) {
         const team = activeL || activeR;
+        const animate = lChanged || rChanged;
         highlightR32(team);
         const steps = buildRoute(team);
-        const routeParts = [];
-
-        steps.forEach(({ matchId, mySlot, opponent }, i) => {
-            setTimeout(() => {
-                const box = matchEl(matchId);
-                if (box) box.classList.add('pred-route');
-                const mySlotEl  = slot(matchId, mySlot);
-                const oppSlotEl = slot(matchId, 1 - mySlot);
-                if (mySlotEl)  { mySlotEl.classList.remove('pred-fill');  mySlotEl.textContent  = team;     mySlotEl.classList.add('pred-selected'); }
-                if (oppSlotEl) { oppSlotEl.classList.remove('pred-fill'); oppSlotEl.textContent = opponent; oppSlotEl.classList.add('pred-opponent'); }
-            }, i * 180);
-            routeParts.push(`${ROUND_LABEL[matchId]}: vs ${opponent}`);
-        });
-
+        const routeParts = steps.map(s => `${ROUND_LABEL[s.matchId]}: vs ${s.opponent}`);
+        applySteps(steps, team, animate);
+        const bannerDelay = animate ? steps.length * 180 : 0;
         setTimeout(() => {
             document.getElementById('pred-banner').textContent =
                 `${team} predicted route → ` + routeParts.join('  →  ');
-        }, steps.length * 180);
+        }, bannerDelay);
         return;
     }
 
@@ -198,39 +210,32 @@ function redraw() {
     const preL = stepsL.filter(s => s.matchId !== 'final');
     const preR = stepsR.filter(s => s.matchId !== 'final');
 
-    preL.forEach(({ matchId, mySlot, opponent }, i) => {
-        setTimeout(() => {
-            const box = matchEl(matchId);
-            if (box) box.classList.add('pred-route');
-            const mySlotEl  = slot(matchId, mySlot);
-            const oppSlotEl = slot(matchId, 1 - mySlot);
-            if (mySlotEl)  { mySlotEl.classList.remove('pred-fill');  mySlotEl.textContent  = activeL;  mySlotEl.classList.add('pred-selected'); }
-            if (oppSlotEl) { oppSlotEl.classList.remove('pred-fill'); oppSlotEl.textContent = opponent; oppSlotEl.classList.add('pred-opponent'); }
-        }, i * 180);
-    });
+    applySteps(preL, activeL, lChanged);
+    applySteps(preR, activeR, rChanged);
 
-    preR.forEach(({ matchId, mySlot, opponent }, i) => {
-        setTimeout(() => {
-            const box = matchEl(matchId);
-            if (box) box.classList.add('pred-route');
-            const mySlotEl  = slot(matchId, mySlot);
-            const oppSlotEl = slot(matchId, 1 - mySlot);
-            if (mySlotEl)  { mySlotEl.classList.remove('pred-fill');  mySlotEl.textContent  = activeR;  mySlotEl.classList.add('pred-selected'); }
-            if (oppSlotEl) { oppSlotEl.classList.remove('pred-fill'); oppSlotEl.textContent = opponent; oppSlotEl.classList.add('pred-opponent'); }
-        }, i * 180);
-    });
+    // Stable side: immediately restore their final slot so it never flickers blank
+    // L-bracket teams always occupy slot 0 in the final; R-bracket always slot 1
+    const fBox = matchEl('final');
+    if (fBox) fBox.classList.add('pred-route');
+    if (!lChanged) {
+        const s = slot('final', 0);
+        if (s) { s.classList.remove('pred-fill'); s.textContent = activeL; s.classList.add('pred-selected'); }
+    }
+    if (!rChanged) {
+        const s = slot('final', 1);
+        if (s) { s.classList.remove('pred-fill'); s.textContent = activeR; s.classList.add('pred-selected'); }
+    }
 
-    const delay = Math.max(preL.length, preR.length) * 180;
+    // After the new side finishes animating, lock in the other slot + banner
+    const finalDelay = Math.max(lChanged ? preL.length : 0, rChanged ? preR.length : 0) * 180;
     setTimeout(() => {
-        const finalBox = matchEl('final');
-        if (finalBox) finalBox.classList.add('pred-route');
         const slotA = slot('final', 0);
         const slotB = slot('final', 1);
         if (slotA) { slotA.classList.remove('pred-fill'); slotA.textContent = activeL; slotA.classList.add('pred-selected'); }
         if (slotB) { slotB.classList.remove('pred-fill'); slotB.textContent = activeR; slotB.classList.add('pred-selected'); }
         document.getElementById('pred-banner').textContent =
             `${activeL} vs ${activeR} — predicted to meet in the Final!`;
-    }, delay);
+    }, finalDelay);
 }
 
 // ── EVENT LISTENERS ────────────────────────────────────────────────────────
@@ -247,6 +252,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             const team = el.dataset.team;
             const side = getSide(team);
+            prevActiveL = activeL;
+            prevActiveR = activeR;
             if (side === 'L') {
                 activeL = (activeL === team) ? null : team;
             } else if (side === 'R') {

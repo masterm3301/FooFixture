@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026</title>
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+        body {
+            min-height: 100vh;
+            background: #1a1a1a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAV ── */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 28px;
+            background: rgba(0,0,0,0.35);
+            border-bottom: 1px solid rgba(139,0,0,0.4);
+        }
+        .nav-logo {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #ccc;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-btn {
+            padding: 7px 18px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-btn.primary {
+            background: #8b0000;
+            color: #fff;
+        }
+        .nav-btn.primary:hover { background: #a80000; }
+        .nav-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: #ddd;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .nav-btn.secondary:hover {
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px 40px;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(139,0,0,0.35) 0%, transparent 65%),
+                #1a1a1a;
+        }
+        .hero-trophy { font-size: 5rem; margin-bottom: 18px; line-height: 1; }
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8b0000;
+            margin-bottom: 12px;
+        }
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: bold;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .hero-title span { color: #c8102e; }
+        .hero-year {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: bold;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.12);
+            letter-spacing: 6px;
+            line-height: 1;
+            margin-bottom: 14px;
+        }
+        .hero-sub {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 36px;
+            max-width: 460px;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 13px 30px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-2px); }
+        .cta-btn.red {
+            background: #8b0000;
+            color: #fff;
+            box-shadow: 0 4px 18px rgba(139,0,0,0.45);
+        }
+        .cta-btn.red:hover { background: #a80000; box-shadow: 0 6px 22px rgba(139,0,0,0.55); }
+        .cta-btn.ghost {
+            border: 1.5px solid rgba(255,255,255,0.25);
+            color: #ddd;
+        }
+        .cta-btn.ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+        /* ── STATS STRIP ── */
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: rgba(139,0,0,0.12);
+            border-top: 1px solid rgba(139,0,0,0.25);
+            border-bottom: 1px solid rgba(139,0,0,0.25);
+            padding: 0;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            flex: 1;
+            min-width: 120px;
+            max-width: 200px;
+            text-align: center;
+            padding: 20px 16px;
+            border-right: 1px solid rgba(255,255,255,0.07);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #c8102e;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 0.68rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── CARDS ── */
+        .cards-section {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            padding: 40px 24px;
+            flex-wrap: wrap;
+            background: #111;
+        }
+        .card {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 28px 24px;
+            width: 280px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+            display: block;
+        }
+        .card:hover {
+            border-color: #8b0000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(139,0,0,0.25);
+        }
+        .card-icon { font-size: 2.4rem; margin-bottom: 14px; }
+        .card-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .card-desc { font-size: 0.8rem; color: #888; line-height: 1.55; }
+        .card-arrow {
+            margin-top: 18px;
+            font-size: 0.75rem;
+            color: #8b0000;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── FOOTER ── */
+        .site-footer {
+            text-align: center;
+            padding: 18px;
+            font-size: 0.72rem;
+            color: #444;
+            background: #111;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="nav-logo">WC 2026</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn secondary">Bracket</a>
+            <a href="index.html#groups" class="nav-btn primary">Group Stage</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-trophy">🏆</div>
+        <div class="hero-eyebrow">FIFA World Cup</div>
+        <h1 class="hero-title">The World's<br>Biggest Stage</h1>
+        <div class="hero-year">2026</div>
+        <p class="hero-sub">48 teams. 3 host nations. One champion.<br>USA &bull; Canada &bull; Mexico &mdash; June 11 &ndash; July 19</p>
+        <div class="hero-cta">
+            <a href="index.html" class="cta-btn red">View Bracket &rarr;</a>
+            <a href="index.html#groups" class="cta-btn ghost">Group Standings</a>
+        </div>
+    </section>
+
+    <div class="stats-strip">
+        <div class="stat-item">
+            <div class="stat-number">48</div>
+            <div class="stat-label">Teams</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">104</div>
+            <div class="stat-label">Matches</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">16</div>
+            <div class="stat-label">Venues</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Groups</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">39</div>
+            <div class="stat-label">Days</div>
+        </div>
+    </div>
+
+    <div class="cards-section">
+        <a href="index.html" class="card">
+            <div class="card-icon">🗂️</div>
+            <div class="card-title">Knockout Bracket</div>
+            <div class="card-desc">Round of 32 through the Final. Click any team to predict their route to the trophy.</div>
+            <div class="card-arrow">Open Bracket &rarr;</div>
+        </a>
+        <a href="index.html#groups" class="card">
+            <div class="card-icon">⚽</div>
+            <div class="card-title">Group Standings</div>
+            <div class="card-desc">All 12 groups with points, goal difference, and qualification status live.</div>
+            <div class="card-arrow">View Groups &rarr;</div>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        FIFA World Cup 2026 &mdash; Data as of June 24, 2026
+    </footer>
+
+</body>
+</html>

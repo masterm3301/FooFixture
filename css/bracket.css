@@ -1,3 +1,45 @@
+/* ── HOME BUTTON ── */
+.home-btn {
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 11px;
+    background: #8b0000;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.4px;
+    z-index: 10;
+    transition: background 0.2s;
+}
+.home-btn:hover { background: #a80000; }
+
+.back-btn {
+    position: absolute;
+    top: 36px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 9px;
+    background: transparent;
+    color: #8b0000;
+    font-size: 0.65rem;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    z-index: 10;
+    border: 1px solid rgba(139,0,0,0.3);
+    transition: background 0.2s;
+}
+.back-btn:hover { background: rgba(139,0,0,0.12); }
+
 /* ── BRACKET SECTION ── */
 .bracket-section {
     position: relative;

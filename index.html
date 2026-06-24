@@ -13,6 +13,9 @@
 <!-- ═══ SECTION 1 — BRACKET ═══ -->
 <div class="bracket-section">
 
+    <a href="home.html" class="home-btn">&#8962; Home</a>
+    <a href="#" class="back-btn" id="back-btn" style="display:none" onclick="history.back();return false;">&#8592; Back</a>
+
     <label class="fill-toggle" title="Fill all predicted teams into empty slots">
         <input type="checkbox" id="fill-toggle-cb">
         <span class="toggle-track"><span class="toggle-thumb"></span></span>
@@ -241,7 +244,7 @@
 
 
 <!-- ═══ SECTION 2 — GROUP TABLES ═══ -->
-<div class="groups-section">
+<div class="groups-section" id="groups">
     <h2>&#x26BD; Group Stage Standings</h2>
 
     <div class="groups-grid">
@@ -409,6 +412,15 @@
 </div>
 
 <script src="js/bracket.js"></script>
+<script>
+(function(){
+    var ref = document.referrer;
+    if(ref && ref.indexOf('/pages/') !== -1){
+        var btn = document.getElementById('back-btn');
+        if(btn){ btn.style.display = 'inline-flex'; btn.onclick = null; btn.href = ref; }
+    }
+})();
+</script>
 
 </body>
 </html>
