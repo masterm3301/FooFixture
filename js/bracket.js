@@ -73,7 +73,6 @@ function best(matchId) {
     if (m.teams) {
         const r1 = FIFA[m.teams[0]] || 99;
         const r2 = FIFA[m.teams[1]] || 99;
-        // If both are unknown (TBD), return null; if one is TBD, pick the known team
         if (m.teams[0] === 'TBD' && m.teams[1] === 'TBD') return 'TBD';
         return r1 <= r2 ? m.teams[0] : m.teams[1];
     }
@@ -81,6 +80,33 @@ function best(matchId) {
     if (!t1 || t1 === 'TBD') return t2;
     if (!t2 || t2 === 'TBD') return t1;
     return (FIFA[t1] || 99) <= (FIFA[t2] || 99) ? t1 : t2;
+}
+
+// Returns the predicted loser of a match (opposite of best())
+function loser(matchId) {
+    const m = M[matchId];
+    if (m.teams) {
+        if (m.teams[0] === 'TBD') return m.teams[1];
+        if (m.teams[1] === 'TBD') return m.teams[0];
+        const r1 = FIFA[m.teams[0]] || 99;
+        const r2 = FIFA[m.teams[1]] || 99;
+        return r1 <= r2 ? m.teams[1] : m.teams[0];
+    }
+    const t1 = best(m.sources[0]), t2 = best(m.sources[1]);
+    if (!t1 || t1 === 'TBD') return t2;
+    if (!t2 || t2 === 'TBD') return t1;
+    return (FIFA[t1] || 99) <= (FIFA[t2] || 99) ? t2 : t1;
+}
+
+function fill3rd() {
+    const t1 = loser('sf-L');
+    const t2 = loser('sf-R');
+    const s1 = document.getElementById('slot-3rd-a');
+    const s2 = document.getElementById('slot-3rd-b');
+    const box = document.getElementById('match-3rd');
+    if (s1) { s1.textContent = t1 || '?'; s1.classList.add('pred-opponent'); }
+    if (s2) { s2.textContent = t2 || '?'; s2.classList.add('pred-opponent'); }
+    if (box) box.classList.add('pred-route');
 }
 
 function findR32(team) {
@@ -203,6 +229,9 @@ function redraw() {
             document.getElementById('pred-banner').textContent =
                 `${team} predicted route → ` + routeParts.join('  →  ');
         }, bannerDelay);
+        // 3rd place appears one beat after the Final step lands
+        const thirdDelay = animate ? (steps.length - 1) * 180 + 120 : 0;
+        setTimeout(fill3rd, thirdDelay);
         return;
     }
 
@@ -236,6 +265,8 @@ function redraw() {
         if (slotB) { slotB.classList.remove('pred-fill'); slotB.textContent = activeR; slotB.classList.add('pred-selected'); }
         document.getElementById('pred-banner').textContent =
             `${activeL} vs ${activeR} — predicted to meet in the Final!`;
+        // 3rd place appears one beat after the Final is locked in
+        setTimeout(fill3rd, 120);
     }, finalDelay);
 }
 
