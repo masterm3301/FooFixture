@@ -7,28 +7,29 @@ const FIFA = {
     'Norway':     17,  'Austria':    18,  'South Korea':19,  'Australia':  20,
     'Egypt':      21,  'Canada':     22,  'Ivory Coast':23,  'Sweden':     24,
     'Croatia':    25,  'Algeria':    26,  'Iran':       27,  'Scotland':   28,
-    'Ghana':      29,  'Paraguay':   30,  'Cape Verde': 31,  'DR Congo':   32
+    'Ghana':      29,  'Paraguay':   30,  'Cape Verde': 31,  'DR Congo':   32,
+    'South Africa':33
 };
 
-// ── BRACKET TREE ───────────────────────────────────────────────────────────
+// ── BRACKET TREE (structure only — teams injected from fixtures.js) ──────────
 const M = {
-    'r32-L1': { teams:['Germany','Paraguay'],       next:'r16-L1', slot:0 },
-    'r32-L2': { teams:['France','Cape Verde'],      next:'r16-L1', slot:1 },
-    'r32-L3': { teams:['South Korea','Switzerland'],next:'r16-L2', slot:0 },
-    'r32-L4': { teams:['Netherlands','Morocco'],    next:'r16-L2', slot:1 },
-    'r32-L5': { teams:['Portugal','Ghana'],         next:'r16-L3', slot:0 },
-    'r32-L6': { teams:['Spain','Austria'],          next:'r16-L3', slot:1 },
-    'r32-L7': { teams:['USA','Sweden'],             next:'r16-L4', slot:0 },
-    'r32-L8': { teams:['Egypt','Algeria'],          next:'r16-L4', slot:1 },
+    'r32-L1': { teams:[], next:'r16-L1', slot:0 },
+    'r32-L2': { teams:[], next:'r16-L1', slot:1 },
+    'r32-L3': { teams:[], next:'r16-L2', slot:0 },
+    'r32-L4': { teams:[], next:'r16-L2', slot:1 },
+    'r32-L5': { teams:[], next:'r16-L3', slot:0 },
+    'r32-L6': { teams:[], next:'r16-L3', slot:1 },
+    'r32-L7': { teams:[], next:'r16-L4', slot:0 },
+    'r32-L8': { teams:[], next:'r16-L4', slot:1 },
 
-    'r32-R1': { teams:['Brazil','Japan'],           next:'r16-R1', slot:0 },
-    'r32-R2': { teams:['Ivory Coast','Norway'],     next:'r16-R1', slot:1 },
-    'r32-R3': { teams:['Mexico','Scotland'],        next:'r16-R2', slot:0 },
-    'r32-R4': { teams:['England','DR Congo'],       next:'r16-R2', slot:1 },
-    'r32-R5': { teams:['Argentina','Uruguay'],      next:'r16-R3', slot:0 },
-    'r32-R6': { teams:['Australia','Iran'],         next:'r16-R3', slot:1 },
-    'r32-R7': { teams:['Canada','Belgium'],         next:'r16-R4', slot:0 },
-    'r32-R8': { teams:['Colombia','Croatia'],       next:'r16-R4', slot:1 },
+    'r32-R1': { teams:[], next:'r16-R1', slot:0 },
+    'r32-R2': { teams:[], next:'r16-R1', slot:1 },
+    'r32-R3': { teams:[], next:'r16-R2', slot:0 },
+    'r32-R4': { teams:[], next:'r16-R2', slot:1 },
+    'r32-R5': { teams:[], next:'r16-R3', slot:0 },
+    'r32-R6': { teams:[], next:'r16-R3', slot:1 },
+    'r32-R7': { teams:[], next:'r16-R4', slot:0 },
+    'r32-R8': { teams:[], next:'r16-R4', slot:1 },
 
     'r16-L1': { sources:['r32-L1','r32-L2'], next:'qf-L1', slot:0 },
     'r16-L2': { sources:['r32-L3','r32-L4'], next:'qf-L1', slot:1 },
@@ -50,6 +51,9 @@ const M = {
     'final':  { sources:['sf-L','sf-R'],      next:null }
 };
 
+// Inject current teams from fixtures.js (R32 is the single source of truth)
+R32.forEach(f => { if (M[f.id]) M[f.id].teams = [f.t1, f.t2]; });
+
 // ── STATE ──────────────────────────────────────────────────────────────────
 let activeL = null;
 let activeR = null;
@@ -67,9 +71,15 @@ function getSide(team) {
 function best(matchId) {
     const m = M[matchId];
     if (m.teams) {
-        return (FIFA[m.teams[0]] || 99) <= (FIFA[m.teams[1]] || 99) ? m.teams[0] : m.teams[1];
+        const r1 = FIFA[m.teams[0]] || 99;
+        const r2 = FIFA[m.teams[1]] || 99;
+        // If both are unknown (TBD), return null; if one is TBD, pick the known team
+        if (m.teams[0] === 'TBD' && m.teams[1] === 'TBD') return 'TBD';
+        return r1 <= r2 ? m.teams[0] : m.teams[1];
     }
     const t1 = best(m.sources[0]), t2 = best(m.sources[1]);
+    if (!t1 || t1 === 'TBD') return t2;
+    if (!t2 || t2 === 'TBD') return t1;
     return (FIFA[t1] || 99) <= (FIFA[t2] || 99) ? t1 : t2;
 }
 
@@ -110,7 +120,7 @@ function clearVisuals() {
     document.querySelectorAll('.pred-dim').forEach(e => e.classList.remove('pred-dim'));
     document.querySelectorAll('.pred-opponent').forEach(e => e.classList.remove('pred-opponent'));
     document.querySelectorAll('.pred-fill').forEach(e => e.classList.remove('pred-fill'));
-    document.querySelectorAll('.prediction-slot').forEach(e => { e.textContent = ' '; });
+    document.querySelectorAll('.prediction-slot').forEach(e => { e.textContent = ' '; });
 }
 
 function clearAll() {
@@ -122,7 +132,6 @@ function clearAll() {
     document.getElementById('pred-banner').textContent = 'Click any team to predict their route to the Final';
 }
 
-// Fill every prediction slot NOT on the active path(s) with best() faded text
 function fillBracket(excludeMatchIds) {
     Object.entries(M).forEach(([matchId, m]) => {
         if (!m.sources || excludeMatchIds.has(matchId)) return;
@@ -173,19 +182,15 @@ function redraw() {
         return;
     }
 
-    // Collect the match IDs that the active path(s) will occupy
     const pathMatchIds = new Set();
     if (activeL) buildRoute(activeL).forEach(s => pathMatchIds.add(s.matchId));
     if (activeR) buildRoute(activeR).forEach(s => pathMatchIds.add(s.matchId));
 
-    // Fill all other slots immediately if fill mode is on
     if (fillMode) fillBracket(pathMatchIds);
 
-    // Which sides changed since the last draw?
     const lChanged = activeL !== prevActiveL;
     const rChanged = activeR !== prevActiveR;
 
-    // ── Single team ──
     if (!activeL || !activeR) {
         const team = activeL || activeR;
         const animate = lChanged || rChanged;
@@ -201,7 +206,6 @@ function redraw() {
         return;
     }
 
-    // ── Both sides — converging paths ──
     highlightR32(activeL);
     highlightR32(activeR);
 
@@ -213,8 +217,6 @@ function redraw() {
     applySteps(preL, activeL, lChanged);
     applySteps(preR, activeR, rChanged);
 
-    // Stable side: immediately restore their final slot so it never flickers blank
-    // L-bracket teams always occupy slot 0 in the final; R-bracket always slot 1
     const fBox = matchEl('final');
     if (fBox) fBox.classList.add('pred-route');
     if (!lChanged) {
@@ -226,7 +228,6 @@ function redraw() {
         if (s) { s.classList.remove('pred-fill'); s.textContent = activeR; s.classList.add('pred-selected'); }
     }
 
-    // After the new side finishes animating, lock in the other slot + banner
     const finalDelay = Math.max(lChanged ? preL.length : 0, rChanged ? preR.length : 0) * 180;
     setTimeout(() => {
         const slotA = slot('final', 0);
@@ -238,19 +239,29 @@ function redraw() {
     }, finalDelay);
 }
 
-// ── EVENT LISTENERS ────────────────────────────────────────────────────────
+// ── INIT ───────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    // Sync every R32 box in the HTML from fixtures.js (overrides any stale HTML)
+    R32.forEach(f => {
+        const box = document.querySelector(`[data-match-id="${f.id}"]`);
+        if (!box) return;
+        const teamEls = box.querySelectorAll('[data-team]');
+        if (teamEls[0]) { teamEls[0].dataset.team = f.t1; teamEls[0].textContent = f.t1; }
+        if (teamEls[1]) { teamEls[1].dataset.team = f.t2; teamEls[1].textContent = f.t2; }
+    });
+
     // Fill-bracket toggle
     document.getElementById('fill-toggle-cb').addEventListener('change', function () {
         fillMode = this.checked;
         redraw();
     });
 
-    // Team clicks
+    // Team clicks (bound after HTML sync so data-team attributes are current)
     document.querySelectorAll('[data-team]').forEach(el => {
         el.addEventListener('click', e => {
             e.stopPropagation();
             const team = el.dataset.team;
+            if (!team || team === 'TBD') return;
             const side = getSide(team);
             prevActiveL = activeL;
             prevActiveR = activeR;
@@ -263,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Click outside resets everything
+    // Click outside resets
     document.addEventListener('click', e => {
         if (!e.target.closest('[data-team]') && !e.target.closest('.fill-toggle')) clearAll();
     });
