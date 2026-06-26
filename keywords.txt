@@ -1,1 +1,2 @@
 today some teams got to qualify so make the new update for Group Stage Standings and update also the index.html with new positions 
+check to see the real fixture https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage and update fixture.js and index.html
