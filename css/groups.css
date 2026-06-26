@@ -71,3 +71,94 @@
     font-size: 0.78rem;
     color: #999;
 }
+
+/* ── BEST 3RD-PLACE SECTION ── */
+.thirds-section {
+    background: #f4f4f4;
+    color: #333;
+    padding: 30px 20px 40px;
+}
+.thirds-section h2 {
+    text-align: center;
+    font-size: 1.5em;
+    color: #8b0000;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.thirds-subtitle {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 22px;
+}
+.thirds-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.thirds-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+.thirds-table thead tr {
+    background: #8b0000;
+}
+.thirds-table th {
+    padding: 7px 10px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 0.68rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.thirds-table th.team-name { text-align: left; }
+.thirds-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    color: #333;
+}
+.thirds-table td.team-name { text-align: left; }
+.thirds-table tbody tr:last-child td { border-bottom: none; }
+
+.t3-safe { background: rgba(139, 0, 0, 0.06); }
+.t3-safe td { color: #8b0000; font-weight: bold; }
+.t3-in td   { color: #444; }
+.t3-out td  { color: #bbb; }
+.t3-pending td { font-style: italic; }
+
+.t3-cutoff-row td {
+    text-align: center;
+    font-size: 0.68rem;
+    color: #8b0000;
+    background: rgba(139, 0, 0, 0.06);
+    border-top: 1px dashed #8b0000;
+    border-bottom: 1px dashed #8b0000;
+    padding: 5px;
+    letter-spacing: 1px;
+}
+
+.t3-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: bold;
+}
+.t3-badge.safe { background: rgba(139, 0, 0, 0.1); color: #8b0000; border: 1px solid rgba(139,0,0,0.2); }
+.t3-badge.in   { background: rgba(0, 100, 200, 0.08); color: #0055aa; border: 1px solid rgba(0,100,200,0.2); }
+.t3-badge.out  { background: rgba(180, 180, 180, 0.15); color: #aaa; border: 1px solid #ddd; }
+
+.thirds-note {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.75rem;
+    color: #999;
+}
