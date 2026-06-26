@@ -1,8 +1,1 @@
-Create dedicated pages for each keyword. add a folder with 6 html pages ..
-
-/world-cup-2026-fixtures
-/world-cup-2026-bracket
-/world-cup-2026-printable-pdf
-/morocco-world-cup-fixtures
-/england-world-cup-fixtures
-/egypt-world-cup-fixtures
+today some teams got to qualify so make the new update for Group Stage Standings and update also the index.html with new positions 
