@@ -128,8 +128,8 @@
 .thirds-table td.team-name { text-align: left; }
 .thirds-table tbody tr:last-child td { border-bottom: none; }
 
-.t3-safe { background: rgba(139, 0, 0, 0.06); }
-.t3-safe td { color: #8b0000; font-weight: bold; }
+.t3-safe { background: rgba(34, 139, 34, 0.06); }
+.t3-safe td { color: #1a6b1a; font-weight: bold; }
 .t3-in td   { color: #444; }
 .t3-out td  { color: #bbb; }
 .t3-pending td { font-style: italic; }
@@ -152,7 +152,7 @@
     font-size: 0.68rem;
     font-weight: bold;
 }
-.t3-badge.safe { background: rgba(139, 0, 0, 0.1); color: #8b0000; border: 1px solid rgba(139,0,0,0.2); }
+.t3-badge.safe { background: rgba(34, 139, 34, 0.12); color: #1a6b1a; border: 1px solid rgba(34,139,34,0.25); }
 .t3-badge.in   { background: rgba(0, 100, 200, 0.08); color: #0055aa; border: 1px solid rgba(0,100,200,0.2); }
 .t3-badge.out  { background: rgba(180, 180, 180, 0.15); color: #aaa; border: 1px solid #ddd; }
 

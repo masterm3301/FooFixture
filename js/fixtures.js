@@ -110,7 +110,7 @@ const R32 = [
     date: "02 JUL 23:00",
     venue: "Vancouver",
     t1: "Switzerland",
-    t2: "Iran",
+    t2: "Algeria",
   },
   {
     id: "r32-R8",
