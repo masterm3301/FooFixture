@@ -256,3 +256,43 @@
 .final-box { background: #8b0000; margin-bottom: 16px; }
 .third-place-box { background: #cc4400; }
 .medal { font-size: 1.4rem; margin-top: 5px; }
+
+/* ── MANUAL PICK MODE ──────────────────────────────────────────────────── */
+/* R32 defined teams */
+.matchup.defined .team[data-team].manual-winner {
+    background: rgba(255, 215, 0, 0.35);
+    color: #ffd700 !important;
+    font-weight: bold;
+}
+.matchup.defined .team[data-team].manual-loser {
+    opacity: 0.3;
+}
+
+/* Prediction slots (R16 → Final) */
+.prediction-slot.manual-winner {
+    background: rgba(255, 215, 0, 0.22);
+    color: #7a5c00 !important;
+    font-weight: bold;
+}
+.prediction-slot.manual-loser {
+    opacity: 0.3;
+}
+.prediction-slot.manual-available {
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.prediction-slot.manual-available:hover {
+    background: rgba(255, 255, 255, 0.12);
+    filter: brightness(1.2);
+}
+
+/* Glow the matchup when both teams are ready to pick */
+.matchup.manual-ready,
+.final-box.manual-ready,
+.third-place-box.manual-ready {
+    outline: 2px solid rgba(255, 215, 0, 0.55);
+    outline-offset: 2px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.2);
+    overflow: visible;
+}
