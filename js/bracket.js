@@ -61,6 +61,12 @@ let fillMode = true;
 const manualPicks = {};
 
 // ── SHARED HELPERS ──────────────────────────────────────────────────────────
+function setTeam(el, name) {
+    if (!el) return;
+    el.textContent = name || '\xa0';
+    if (name && FLAGS[name]) el.dataset.flag = FLAGS[name];
+    else delete el.dataset.flag;
+}
 function slot(matchId, idx) {
     return document.getElementById(`slot-${matchId}-${idx === 0 ? 'a' : 'b'}`);
 }
@@ -109,8 +115,8 @@ function fill3rd() {
     const t1 = loser('sf-L'), t2 = loser('sf-R');
     const s1 = document.getElementById('slot-3rd-a'), s2 = document.getElementById('slot-3rd-b');
     const box = document.getElementById('match-3rd');
-    if (s1) { s1.textContent = t1 || '?'; s1.classList.add('pred-opponent'); }
-    if (s2) { s2.textContent = t2 || '?'; s2.classList.add('pred-opponent'); }
+    if (s1) { setTeam(s1, t1 || '?'); s1.classList.add('pred-opponent'); }
+    if (s2) { setTeam(s2, t2 || '?'); s2.classList.add('pred-opponent'); }
     if (box) box.classList.add('pred-route');
 }
 function buildRoute(team) {
@@ -143,7 +149,7 @@ function clearVisuals() {
     document.querySelectorAll('.pred-dim').forEach(e => e.classList.remove('pred-dim'));
     document.querySelectorAll('.pred-opponent').forEach(e => e.classList.remove('pred-opponent'));
     document.querySelectorAll('.pred-fill').forEach(e => e.classList.remove('pred-fill'));
-    document.querySelectorAll('.prediction-slot').forEach(e => { e.textContent = ' '; });
+    document.querySelectorAll('.prediction-slot').forEach(e => { e.textContent = '\xa0'; delete e.dataset.flag; });
 }
 function clearAll() {
     clearVisuals();
@@ -154,8 +160,8 @@ function fillBracket(excludeMatchIds) {
     Object.entries(M).forEach(([matchId, m]) => {
         if (!m.sources || excludeMatchIds.has(matchId)) return;
         const el0 = slot(matchId, 0), el1 = slot(matchId, 1);
-        if (el0) { el0.textContent = best(m.sources[0]); el0.classList.add('pred-fill'); }
-        if (el1) { el1.textContent = best(m.sources[1]); el1.classList.add('pred-fill'); }
+        if (el0) { setTeam(el0, best(m.sources[0])); el0.classList.add('pred-fill'); }
+        if (el1) { setTeam(el1, best(m.sources[1])); el1.classList.add('pred-fill'); }
     });
 }
 function highlightR32(team) {
@@ -174,8 +180,8 @@ function applySteps(steps, teamName, animate) {
             if (box) box.classList.add('pred-route');
             const mySlotEl  = slot(matchId, mySlot);
             const oppSlotEl = slot(matchId, 1 - mySlot);
-            if (mySlotEl)  { mySlotEl.classList.remove('pred-fill');  mySlotEl.textContent  = teamName; mySlotEl.classList.add('pred-selected'); }
-            if (oppSlotEl) { oppSlotEl.classList.remove('pred-fill'); oppSlotEl.textContent = opponent; oppSlotEl.classList.add('pred-opponent'); }
+            if (mySlotEl)  { mySlotEl.classList.remove('pred-fill');  setTeam(mySlotEl,  teamName); mySlotEl.classList.add('pred-selected'); }
+            if (oppSlotEl) { oppSlotEl.classList.remove('pred-fill'); setTeam(oppSlotEl, opponent); oppSlotEl.classList.add('pred-opponent'); }
         };
         animate ? setTimeout(apply, i * 180) : apply();
     });
@@ -216,13 +222,13 @@ function redraw() {
     applySteps(preR, activeR, rChanged);
     const fBox = matchEl('final');
     if (fBox) fBox.classList.add('pred-route');
-    if (!lChanged) { const s = slot('final', 0); if (s) { s.classList.remove('pred-fill'); s.textContent = activeL; s.classList.add('pred-selected'); } }
-    if (!rChanged) { const s = slot('final', 1); if (s) { s.classList.remove('pred-fill'); s.textContent = activeR; s.classList.add('pred-selected'); } }
+    if (!lChanged) { const s = slot('final', 0); if (s) { s.classList.remove('pred-fill'); setTeam(s, activeL); s.classList.add('pred-selected'); } }
+    if (!rChanged) { const s = slot('final', 1); if (s) { s.classList.remove('pred-fill'); setTeam(s, activeR); s.classList.add('pred-selected'); } }
     const finalDelay = Math.max(lChanged ? preL.length : 0, rChanged ? preR.length : 0) * 180;
     setTimeout(() => {
         const slotA = slot('final', 0), slotB = slot('final', 1);
-        if (slotA) { slotA.classList.remove('pred-fill'); slotA.textContent = activeL; slotA.classList.add('pred-selected'); }
-        if (slotB) { slotB.classList.remove('pred-fill'); slotB.textContent = activeR; slotB.classList.add('pred-selected'); }
+        if (slotA) { slotA.classList.remove('pred-fill'); setTeam(slotA, activeL); slotA.classList.add('pred-selected'); }
+        if (slotB) { slotB.classList.remove('pred-fill'); setTeam(slotB, activeR); slotB.classList.add('pred-selected'); }
         document.getElementById('pred-banner').textContent = `${activeL} vs ${activeR} — predicted to meet in the Final!`;
         setTimeout(fill3rd, 120);
     }, finalDelay);
@@ -238,7 +244,7 @@ function clearDownstreamManual(matchId) {
 
 function clearManualVisuals() {
     document.querySelectorAll('.prediction-slot').forEach(el => {
-        el.textContent = ' ';
+        el.textContent = '\xa0'; delete el.dataset.flag;
         el.classList.remove('manual-winner', 'manual-loser', 'manual-available');
         delete el.dataset.manualMatch;
         delete el.dataset.manualTeam;
@@ -276,14 +282,14 @@ function renderManualBracket() {
         const box = matchEl(matchId);
 
         if (team0 && slotA) {
-            slotA.textContent = team0;
+            setTeam(slotA, team0);
             slotA.dataset.manualMatch = matchId;
             slotA.dataset.manualTeam = team0;
             slotA.classList.add('manual-available');
             if (winner) slotA.classList.add(team0 === winner ? 'manual-winner' : 'manual-loser');
         }
         if (team1 && slotB) {
-            slotB.textContent = team1;
+            setTeam(slotB, team1);
             slotB.dataset.manualMatch = matchId;
             slotB.dataset.manualTeam = team1;
             slotB.classList.add('manual-available');
@@ -302,8 +308,8 @@ function renderManualBracket() {
         const lL = sfLsrc.find(t => t && t !== finL) || '?';
         const lR = sfRsrc.find(t => t && t !== finR) || '?';
         const s3a = document.getElementById('slot-3rd-a'), s3b = document.getElementById('slot-3rd-b');
-        if (s3a) { s3a.textContent = lL; s3a.classList.add('manual-winner'); }
-        if (s3b) { s3b.textContent = lR; s3b.classList.add('manual-winner'); }
+        if (s3a) { setTeam(s3a, lL); s3a.classList.add('manual-winner'); }
+        if (s3b) { setTeam(s3b, lR); s3b.classList.add('manual-winner'); }
         const m3 = document.getElementById('match-3rd');
         if (m3) m3.classList.add('manual-ready');
     }
@@ -330,8 +336,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const box = document.querySelector(`[data-match-id="${f.id}"]`);
         if (!box) return;
         const teamEls = box.querySelectorAll('[data-team]');
-        if (teamEls[0]) { teamEls[0].dataset.team = f.t1; teamEls[0].textContent = f.t1; }
-        if (teamEls[1]) { teamEls[1].dataset.team = f.t2; teamEls[1].textContent = f.t2; }
+        if (teamEls[0]) { teamEls[0].dataset.team = f.t1; setTeam(teamEls[0], f.t1); }
+        if (teamEls[1]) { teamEls[1].dataset.team = f.t2; setTeam(teamEls[1], f.t2); }
     });
 
     // Set initial banner for fill-ON mode (default)
@@ -403,5 +409,49 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', e => {
         if (e.target.closest('[data-team]') || e.target.closest('.prediction-slot') || e.target.closest('.fill-toggle')) return;
         if (fillMode) clearAll();
+    });
+
+    // ── Mobile layout: SF boxes move into center-axis ──────────────────────
+    let _sfLRound = null, _sfRRound = null;
+    function mobileRearrange() {
+        const isMobile = window.innerWidth <= 640;
+        const centerAxis = document.querySelector('.center-axis');
+        const sfL = document.getElementById('match-sf-L');
+        const sfR = document.getElementById('match-sf-R');
+        if (!centerAxis || !sfL || !sfR) return;
+        const isInCenter = sfL.parentElement === centerAxis;
+
+        if (isMobile && !isInCenter) {
+            // Save original parent rounds so we can restore on resize
+            _sfLRound = sfL.closest('.round');
+            _sfRRound = sfR.closest('.round');
+            // SF-L sits above the trophy (top of center-axis)
+            const trophy = centerAxis.querySelector('.trophy-placeholder');
+            centerAxis.insertBefore(sfL, trophy);
+            // SF-R sits after the final box, above the 3rd-place title
+            document.getElementById('match-final').after(sfR);
+            // Hide the now-empty SF round columns from the bracket sides
+            if (_sfLRound) _sfLRound.style.display = 'none';
+            if (_sfRRound) _sfRRound.style.display = 'none';
+            // Redraw connector lines with the new element positions
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 20);
+
+        } else if (!isMobile && isInCenter) {
+            // Restore SF boxes to their original round columns
+            if (_sfLRound) { _sfLRound.appendChild(sfL); _sfLRound.style.display = ''; }
+            if (_sfRRound) { _sfRRound.appendChild(sfR); _sfRRound.style.display = ''; }
+            // Redraw connector lines for the restored desktop layout
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 20);
+        }
+    }
+
+    // Run once on load (after a tick so layout is settled)
+    setTimeout(mobileRearrange, 60);
+
+    // Re-run on orientation change / resize (debounced)
+    let _rearrangeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(_rearrangeTimer);
+        _rearrangeTimer = setTimeout(mobileRearrange, 200);
     });
 });

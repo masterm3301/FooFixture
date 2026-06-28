@@ -122,9 +122,14 @@
     transition: opacity 0.3s;
 }
 
-.bracket-wrapper {
+.bracket-scroll-wrap {
     flex: 1;
     min-height: 0;
+    overflow: hidden;
+}
+
+.bracket-wrapper {
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -132,6 +137,11 @@
     margin: 0 auto;
     width: 100%;
 }
+
+.mobile-scroll-hint { display: none; }
+
+/* desktop: top-bar is invisible (children are absolute) */
+.mobile-top-bar { position: static; }
 
 .bracket-side {
     display: flex;
@@ -295,4 +305,125 @@
     border-radius: 4px;
     box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.2);
     overflow: visible;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+    .bracket-section {
+        padding: 0 0 20px;
+        height: auto;        /* grow to fit all R32 matches — no clipping */
+        overflow: visible;
+    }
+
+    /* ── Mobile header bar ── */
+    .mobile-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 10px;
+        flex-shrink: 0;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        min-height: 44px;
+    }
+
+    .home-btn {
+        position: static;
+        font-size: 0.68rem;
+        padding: 5px 10px;
+    }
+
+    .fill-toggle {
+        position: static;
+        font-size: 0.68rem;
+        gap: 5px;
+    }
+
+    /* Hide header texts — keep only the swipe hint */
+    .page-header,
+    #pred-banner,
+    .bracket-section > p { display: none; }
+
+    .mobile-scroll-hint {
+        display: block;
+        text-align: center;
+        font-size: 0.6rem;
+        color: #aaa;
+        letter-spacing: 0.4px;
+        padding: 2px 0 3px;
+        flex-shrink: 0;
+        animation: hint-pulse 2s ease-in-out 0.8s 3;
+    }
+
+    @keyframes hint-pulse {
+        0%, 100% { opacity: 0.5; }
+        50%       { opacity: 1; }
+    }
+
+    /* ── Bracket scroll ── */
+    .bracket-scroll-wrap {
+        flex: none;           /* don't try to fill a fixed height */
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* All columns stretch to the same height; space-around fills each round */
+    .bracket-wrapper {
+        height: auto;
+        min-height: 640px;   /* enough for 8 R32 cards + spacing */
+        align-items: stretch;
+        min-width: 600px;
+        padding: 4px 6px;
+    }
+
+    /* ── Compact match-info ── */
+    .match-info {
+        font-size: 0.5rem;
+        padding: 2px 2px;
+        line-height: 1.25;
+    }
+
+    /* ── Flag-only team rows ── */
+    .team[data-flag] {
+        font-size: 0;
+        padding: 4px 2px;
+        text-align: center;
+        line-height: 1;
+    }
+    .team[data-flag]::before {
+        content: attr(data-flag);
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+    /* All matchup cards: 65px */
+    .matchup { width: 65px; }
+
+    /* Final and 3rd place boxes match */
+    .final-box,
+    .third-place-box { width: 65px; }
+
+    /* ── Center-axis: vertical column holding SF-L / Final / SF-R / 3rd ── */
+    .center-axis {
+        width: 90px;
+        flex-shrink: 0;
+        justify-content: center; /* vertically center Final between the SFs */
+        align-items: center;
+        gap: 4px;
+        padding: 2px 0;
+    }
+
+    /* SF matchups inside center-axis slightly wider to stand out */
+    .center-axis .matchup { width: 78px; }
+    .final-box,
+    .third-place-box      { width: 78px; }
+
+    /* Compact decorative elements */
+    .trophy-placeholder { font-size: 1.4rem; margin-bottom: 1px; }
+    .final-title        { font-size: 0.7rem; margin-bottom: 1px; }
+    .medal              { font-size: 1.1rem; margin-top: 1px; }
+
+    /* Let space-around handle vertical distribution in each round column */
+    .round { gap: 0; }
 }

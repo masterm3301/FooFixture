@@ -162,3 +162,74 @@
     font-size: 0.75rem;
     color: #999;
 }
+
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+    /* Groups section */
+    .groups-section {
+        padding: 18px 10px 24px;
+    }
+    .groups-section h2 {
+        font-size: 1.1em;
+        letter-spacing: 0.4px;
+        margin-bottom: 12px;
+    }
+    .groups-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .group-header {
+        font-size: 0.74rem;
+        padding: 5px 4px;
+    }
+    .group-table {
+        font-size: 0.67rem;
+    }
+    .group-table th {
+        padding: 2px 4px;
+        font-size: 0.56rem;
+    }
+    .group-table td {
+        padding: 4px 4px;
+    }
+    .groups-note {
+        font-size: 0.7rem;
+        margin-top: 10px;
+    }
+
+    /* Thirds section */
+    .thirds-section {
+        padding: 18px 10px 24px;
+    }
+    .thirds-section h2 {
+        font-size: 1.1em;
+        letter-spacing: 0.4px;
+        margin-bottom: 4px;
+    }
+    .thirds-subtitle {
+        font-size: 0.7rem;
+        margin-bottom: 14px;
+    }
+    .thirds-wrap {
+        width: 100%;
+        max-width: 100%;
+    }
+    .thirds-table {
+        font-size: 0.7rem;
+    }
+    .thirds-table th {
+        padding: 5px 5px;
+        font-size: 0.58rem;
+    }
+    .thirds-table td {
+        padding: 5px 5px;
+    }
+    .t3-badge {
+        font-size: 0.58rem;
+        padding: 1px 5px;
+    }
+    .thirds-note {
+        font-size: 0.68rem;
+        margin-top: 10px;
+    }
+}

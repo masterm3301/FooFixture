@@ -3,6 +3,18 @@
 // Update t1/t2 as teams are confirmed. Use 'TBD' for unconfirmed opponents.
 // ─────────────────────────────────────────────────────────────────────────────
 
+const FLAGS = {
+    'Germany':'🇩🇪','Paraguay':'🇵🇾','France':'🇫🇷','Sweden':'🇸🇪',
+    'South Africa':'🇿🇦','Canada':'🇨🇦','Netherlands':'🇳🇱','Morocco':'🇲🇦',
+    'Portugal':'🇵🇹','Croatia':'🇭🇷','Spain':'🇪🇸','Austria':'🇦🇹',
+    'USA':'🇺🇸','Bosnia-Herzegovina':'🇧🇦','Belgium':'🇧🇪','Senegal':'🇸🇳',
+    'Brazil':'🇧🇷','Japan':'🇯🇵','Ivory Coast':'🇨🇮','Norway':'🇳🇴',
+    'Mexico':'🇲🇽','Ecuador':'🇪🇨','England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','DR Congo':'🇨🇩',
+    'Argentina':'🇦🇷','Cape Verde':'🇨🇻','Australia':'🇦🇺','Egypt':'🇪🇬',
+    'Switzerland':'🇨🇭','Algeria':'🇩🇿','Colombia':'🇨🇴','Ghana':'🇬🇭',
+    'South Korea':'🇰🇷','Scotland':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','Iran':'🇮🇷','Uruguay':'🇺🇾',
+};
+
 const R32 = [
   // ── LEFT SIDE ──────────────────────────────────────────────────────────────
   {
