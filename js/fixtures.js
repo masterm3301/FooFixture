@@ -23,6 +23,8 @@ const R32 = [
     venue: "Boston",
     t1: "Germany",
     t2: "Paraguay",
+    score: "1–1 a.e.t. (4–3p)",
+    winner: "Paraguay",
   },
   {
     id: "r32-L2",
@@ -37,6 +39,8 @@ const R32 = [
     venue: "Los Angeles",
     t1: "South Africa",
     t2: "Canada",
+    score: "0–1",
+    winner: "Canada",
   },
   {
     id: "r32-L4",
@@ -44,6 +48,8 @@ const R32 = [
     venue: "Monterrey",
     t1: "Netherlands",
     t2: "Morocco",
+    score: "1–1 a.e.t. (3–2p)",
+    winner: "Morocco",
   },
   {
     id: "r32-L5",
@@ -81,6 +87,8 @@ const R32 = [
     venue: "Houston",
     t1: "Brazil",
     t2: "Japan",
+    score: "2–1",
+    winner: "Brazil",
   },
   {
     id: "r32-R2",

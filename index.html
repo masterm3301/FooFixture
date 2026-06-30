@@ -111,7 +111,7 @@
           <!-- R32 -->
           <div class="round">
             <div class="matchup defined" data-match-id="r32-L1">
-              <div class="match-info">29 JUN 21:30<br />Boston</div>
+              <div class="match-info">29 JUN 21:30<br />Boston<br /><span style="color:#ffd700;font-weight:bold;">4–3p</span></div>
               <div class="team" data-team="Germany">Germany</div>
               <div class="team" data-team="Paraguay">Paraguay</div>
             </div>
@@ -121,12 +121,12 @@
               <div class="team" data-team="Sweden">Sweden</div>
             </div>
             <div class="matchup defined" data-match-id="r32-L3">
-              <div class="match-info">28 JUN 20:00<br />Los Angeles</div>
+              <div class="match-info">28 JUN 20:00<br />Los Angeles<br /><span style="color:#ffd700;font-weight:bold;">0–1</span></div>
               <div class="team" data-team="South Africa">South Africa</div>
               <div class="team" data-team="Canada">Canada</div>
             </div>
             <div class="matchup defined" data-match-id="r32-L4">
-              <div class="match-info">29 JUN 02:00<br />Monterrey</div>
+              <div class="match-info">29 JUN 02:00<br />Monterrey<br /><span style="color:#ffd700;font-weight:bold;">3–2p</span></div>
               <div class="team" data-team="Netherlands">Netherlands</div>
               <div class="team" data-team="Morocco">Morocco</div>
             </div>
@@ -251,7 +251,7 @@
           <!-- R32 -->
           <div class="round">
             <div class="matchup defined" data-match-id="r32-R1">
-              <div class="match-info">29 JUN 18:00<br />Houston</div>
+              <div class="match-info">29 JUN 18:00<br />Houston<br /><span style="color:#ffd700;font-weight:bold;">2–1</span></div>
               <div class="team" data-team="Brazil">Brazil</div>
               <div class="team" data-team="Japan">Japan</div>
             </div>
@@ -834,7 +834,7 @@
       </div>
 
       <p class="groups-note">
-        Data as of June 28, 2026 &mdash; All groups complete &bull;
+        Data as of June 30, 2026 &mdash; All groups complete &bull;
         🥇 1st place qualified &bull; 🥈 2nd place qualified
         &bull; 🥉 Best 8 of 12 third-place teams qualified
       </p>
@@ -963,7 +963,7 @@
       </div>
 
       <p class="thirds-note">
-        All group stage complete as of June 28, 2026 &bull; Tiebreaker: Pts &rarr; GD &rarr; Goals scored
+        All group stage complete as of June 30, 2026 &bull; Tiebreaker: Pts &rarr; GD &rarr; Goals scored
       </p>
     </div>
 
@@ -982,6 +982,19 @@
           }
         }
       })();
+
+      // Auto-apply confirmed match results from fixtures data
+      document.addEventListener('DOMContentLoaded', function () {
+        R32.forEach(function (f) {
+          if (f.winner) manualPicks[f.id] = f.winner;
+        });
+        if (Object.keys(manualPicks).length > 0) {
+          fillMode = false;
+          var cb = document.getElementById('fill-toggle-cb');
+          if (cb) cb.checked = false;
+          renderManualBracket();
+        }
+      });
     </script>
   </body>
 </html>
