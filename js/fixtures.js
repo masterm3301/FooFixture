@@ -32,6 +32,8 @@ const R32 = [
     venue: "NY New Jersey",
     t1: "France",
     t2: "Sweden",
+    score: "3–0",
+    winner: "France",
   },
   {
     id: "r32-L3",
@@ -96,6 +98,8 @@ const R32 = [
     venue: "Dallas",
     t1: "Ivory Coast",
     t2: "Norway",
+    score: "2–1",
+    winner: "Norway",
   },
   {
     id: "r32-R3",
@@ -103,6 +107,8 @@ const R32 = [
     venue: "Mexico City",
     t1: "Mexico",
     t2: "Ecuador",
+    score: "2–0",
+    winner: "Mexico",
   },
   {
     id: "r32-R4",
